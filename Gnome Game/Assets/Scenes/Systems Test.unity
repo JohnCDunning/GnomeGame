@@ -482,6 +482,7 @@ GameObject:
   - component: {fileID: 1695116067}
   - component: {fileID: 1695116066}
   - component: {fileID: 1695116065}
+  - component: {fileID: 1695116069}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -539,8 +540,10 @@ MonoBehaviour:
   offset: {x: 0, y: 0, z: 0}
   maxOffset: 0
   offsetSpeed: 0
+  cameraSpeed: 0
   rotationSpeed: 1000
   CameraController: {fileID: 1396282323}
+  activeWeapon: {fileID: 1695116069}
 --- !u!4 &1695116068
 Transform:
   m_ObjectHideFlags: 0
@@ -557,6 +560,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1695116069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1695116064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 462cff91cb83ad946a53efe58870bd3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackSize: {x: 0.1, y: 0.1, z: 1}
 --- !u!4 &1879206398 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b92bee6f8cd5c9e42b2bb7f13d43edf2,
