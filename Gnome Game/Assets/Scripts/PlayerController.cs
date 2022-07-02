@@ -79,6 +79,7 @@ public class PlayerController : MonoBehaviour, GnomeGameActions.IPlayerActions
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        activeWeapon.Attack(this.transform);
+        if (activeWeapon)
+            activeWeapon.Attack(this.transform);
     }
 }
