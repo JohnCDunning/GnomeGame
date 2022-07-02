@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour, GnomeGameActions.IPlayerActions
     public Vector3 offset = Vector3.up;
     public float maxOffset;
     public float offsetSpeed;
+    public float cameraSpeed;
     public float rotationSpeed = 1000;
     public CameraController CameraController;
 
@@ -31,13 +32,14 @@ public class PlayerController : MonoBehaviour, GnomeGameActions.IPlayerActions
 
     private void Update()
     {
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(lastMovement, Vector3.up), rotationSpeed * Time.deltaTime);
+        if(lastMovement != Vector3.zero)
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(lastMovement, Vector3.up), rotationSpeed * Time.deltaTime);
     }
 
     private void LateUpdate()
     {
         Vector3 vel = new Vector3();
-        CameraController.transform.position = Vector3.SmoothDamp(CameraController.transform.position, cyanBallPos, ref vel, 1f);
+        CameraController.transform.position = Vector3.SmoothDamp(CameraController.transform.position, cyanBallPos, ref vel, cameraSpeed);
     }
 
     private void FixedUpdate()
@@ -47,7 +49,6 @@ public class PlayerController : MonoBehaviour, GnomeGameActions.IPlayerActions
 
         if (movement != Vector3.zero)
         {
-        
            lastMovement = movement.normalized;
         }
 
