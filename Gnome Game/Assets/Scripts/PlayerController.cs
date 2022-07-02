@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour, GnomeGameActions.IPlayerActions
     public float rotationSpeed = 1000;
     public CameraController CameraController;
 
+    public WeaponBase activeWeapon;
 
 
     public void Start()
@@ -78,5 +79,7 @@ public class PlayerController : MonoBehaviour, GnomeGameActions.IPlayerActions
 
     public void OnAttack(InputAction.CallbackContext context)
     {
+        if (activeWeapon)
+            activeWeapon.Attack(this.transform);
     }
 }
