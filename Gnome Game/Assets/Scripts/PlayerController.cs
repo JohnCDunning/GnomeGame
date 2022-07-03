@@ -1,18 +1,21 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using NodeCanvas.Framework;
+using NodeCanvas.StateMachines;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour, GnomeGameActions.IPlayerActions
 {
     public CharacterController controller;
-    public Vector3 movement;
-    public Vector3 lastMovement;
+    public float playerMoveSpeed = 5;
+    private Vector3 movement;
+    private Vector3 lastMovement;
 
-    public Vector3 cyanBallPos;
-    public Vector3 offset = Vector3.up;
-    public float maxOffset;
+    private Vector3 cyanBallPos;
+    private Vector3 offset = Vector3.up;
+    public float maxOffset = 1;
     public float offsetSpeed;
     public float cameraSpeed;
     public float rotationSpeed = 1000;
@@ -20,7 +23,8 @@ public class PlayerController : MonoBehaviour, GnomeGameActions.IPlayerActions
 
     public WeaponBase activeWeapon;
 
-
+    public Blackboard fsmBlackBoard;
+    public FSMOwner fsmOwner;
     public void Start()
     {
         Initialize();
@@ -28,6 +32,7 @@ public class PlayerController : MonoBehaviour, GnomeGameActions.IPlayerActions
     public void Initialize()
     {
         AppManager.Instance.InputController.SubscribePlayerInput(this);
+      
     }
 
     private void Update()
@@ -45,14 +50,19 @@ public class PlayerController : MonoBehaviour, GnomeGameActions.IPlayerActions
     private void FixedUpdate()
     {
         Vector3 movementLastFrame = movement;
-        controller.Move(movement * Time.fixedDeltaTime * 3);
+        controller.Move(movement * Time.fixedDeltaTime * playerMoveSpeed);
 
         if (movement != Vector3.zero)
         {
            lastMovement = movement.normalized;
+           fsmBlackBoard.SetVariableValue("isWalking", true);
+        }
+        else
+        {
+            fsmBlackBoard.SetVariableValue("isWalking", false);
         }
 
-        
+
         //Camera controller for smooth offset
         offset += movement * (offsetSpeed * Time.deltaTime);
         offset = Vector3.ClampMagnitude(offset, maxOffset);

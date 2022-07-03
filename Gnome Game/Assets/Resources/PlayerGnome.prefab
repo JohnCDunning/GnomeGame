@@ -11,6 +11,9 @@ GameObject:
   - component: {fileID: 2696216804586288959}
   - component: {fileID: 2696216804586288958}
   - component: {fileID: 2696216804586288957}
+  - component: {fileID: 6582986668405540974}
+  - component: {fileID: 4361250472109944460}
+  - component: {fileID: -5707885335031118640}
   m_Layer: 0
   m_Name: PlayerGnome
   m_TagString: Untagged
@@ -65,15 +68,84 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 2696216804586288958}
-  movement: {x: 0, y: 0, z: 0}
-  lastMovement: {x: 0, y: 0, z: 0}
-  cyanBallPos: {x: 0, y: 0, z: 0}
-  offset: {x: 0, y: 0, z: 0}
+  playerMoveSpeed: 5
   maxOffset: 1
   offsetSpeed: 3
   cameraSpeed: 0.01
   rotationSpeed: 1000
   CameraController: {fileID: 0}
+  activeWeapon: {fileID: 0}
+  fsmBlackBoard: {fileID: -5707885335031118640}
+  fsmOwner: {fileID: 4361250472109944460}
+--- !u!95 &6582986668405540974
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2696216804586288956}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2575f802d10b6fb4494291b833d34cfe, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4361250472109944460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2696216804586288956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a7dbb6bbdf4ffb46ab7dd87ba8191e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _serializedExposedParameters: []
+  _boundGraphSerialization: 
+  _boundGraphObjectReferences: []
+  _boundGraphSource:
+    _version: 0
+    _category: 
+    _comments: 
+    _translation: {x: 0, y: 0}
+    _zoomFactor: 1
+  _firstActivation: 0
+  _enableAction: 0
+  _disableAction: 0
+  _lockBoundGraphPrefabOverrides: 1
+  _preInitializeSubGraphs: 0
+  _updateMode: 0
+  _graph: {fileID: 11400000, guid: 56eac8869d01eb24d935ad6a5ebbe329, type: 2}
+  _blackboard: {fileID: -5707885335031118640}
+--- !u!114 &-5707885335031118640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2696216804586288956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b98a6db0b653f764eac834f85857a9dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _parentBlackboard: {fileID: 0}
+  _serializedBlackboard: '{"_variables":{"isWalking":{"_name":"isWalking","_id":"4427ca1a-2339-4603-897a-40a1f54481c5","$type":"NodeCanvas.Framework.Variable`1[[System.Boolean,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}}}'
+  _objectReferences: []
+  _serializedVariables:
+  - _json: '{"_name":"isWalking","_id":"4427ca1a-2339-4603-897a-40a1f54481c5","$type":"NodeCanvas.Framework.Variable`1[[System.Boolean,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}'
+    _references: []
 --- !u!1001 &7330347042311764391
 PrefabInstance:
   m_ObjectHideFlags: 0
