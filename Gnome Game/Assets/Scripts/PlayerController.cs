@@ -22,14 +22,21 @@ public class PlayerController : MonoBehaviour, GnomeGameActions.IPlayerActions
     [SerializeField] private float playerSpeed = 3f;
     [SerializeField] private float rotationSpeed = 1000;
     public CameraController CameraController;
+
+
     public WeaponBase activeWeapon;
+    public Transform weaponAttachPoint;
 
-
-    
     public void Start()
     {
         Initialize();
+
+        if (activeWeapon)
+        {
+            activeWeapon.Attach(weaponAttachPoint, this.gameObject);
+        }
     }
+
     public void Initialize()
     {
         AppManager.Instance.InputController.SubscribePlayerInput(this);
@@ -84,7 +91,7 @@ public class PlayerController : MonoBehaviour, GnomeGameActions.IPlayerActions
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (activeWeapon)
-            activeWeapon.Attack(this.transform);
+        if (activeWeapon && context.started)
+            activeWeapon.Attack(this.transform.forward);
     }
 }
