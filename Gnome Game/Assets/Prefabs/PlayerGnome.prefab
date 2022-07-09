@@ -67,16 +67,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8df8e9497c5a79408e072ee421ea5f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movement: {x: 0, y: 0, z: 0}
+  lastMovement: {x: 0, y: 0, z: 0}
+  cyanBallPos: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 0, z: 0}
   controller: {fileID: 2696216804586288958}
-  playerMoveSpeed: 5
   maxOffset: 1
   offsetSpeed: 3
   cameraSpeed: 0.01
+  playerSpeed: 5
   rotationSpeed: 1000
   CameraController: {fileID: 0}
   activeWeapon: {fileID: 0}
-  fsmBlackBoard: {fileID: -5707885335031118640}
-  fsmOwner: {fileID: 4361250472109944460}
 --- !u!95 &6582986668405540974
 Animator:
   serializedVersion: 4
