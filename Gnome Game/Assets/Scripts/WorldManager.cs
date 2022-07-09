@@ -5,9 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class WorldManager : MonoBehaviour
 {
+    public static WorldManager instance;
     public Transform playerSpawn;
     [HideInInspector]
     public PlayerController playerController;
+    [HideInInspector]
     public GameObject playerPrefab;
     
     [HideInInspector]
@@ -19,6 +21,7 @@ public class WorldManager : MonoBehaviour
         {
             StartCoroutine(LoadMaster());
         }
+        instance = this;
     }
     IEnumerator LoadMaster()
     {
