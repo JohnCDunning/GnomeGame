@@ -36,7 +36,6 @@ public class WorldManager : MonoBehaviour
         playerController.transform.SetPositionAndRotation(playerSpawn.position,playerSpawn.rotation);
 
         cameraController = Instantiate(cameraControllerPrefab).GetComponent<CameraController>();
-        cameraController.playerController = playerController;
-        playerController.CameraController = cameraController;
+        cameraController.Init(playerController);
     }
 }

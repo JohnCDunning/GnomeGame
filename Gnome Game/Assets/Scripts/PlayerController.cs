@@ -25,7 +25,8 @@ public class PlayerController : MonoBehaviour, GnomeGameActions.IPlayerActions
     public WeaponBase activeWeapon;
 
 
-    
+
+    public List<IInteractive> interactivesNearbyeList = new List<IInteractive>();
     public void Start()
     {
         Initialize();
@@ -52,31 +53,44 @@ public class PlayerController : MonoBehaviour, GnomeGameActions.IPlayerActions
         }
     }
 
-    private void LateUpdate()
+    private IInteractive GetClosestInteractive()
     {
-        ///Vector3 vel = new Vector3();
-        ///CameraController.transform.position = Vector3.SmoothDamp(CameraController.transform.position, cyanBallPos, ref vel, cameraSpeed);
+        float bestDistance = 100;
+        IInteractive closestInteractive = null;
+        for (int i = 0; i < interactivesNearbyeList.Count; i++)
+        {
+            float dist = Vector3.Distance(interactivesNearbyeList[i].GetTransform().position, transform.position);
+            if(dist<bestDistance)
+            {
+                bestDistance = dist;
+                closestInteractive = interactivesNearbyeList[i];
+            }
+        }
+        CameraController.interactCamera.m_LookAt = closestInteractive.GetTransform();
+        return closestInteractive;
     }
-
-    private void FixedUpdate()
-    {
-
-
-        
-       // //Camera controller for smooth offset
-       // offset += movement * (offsetSpeed * Time.deltaTime);
-       // offset = Vector3.ClampMagnitude(offset, maxOffset);
-       // cyanBallPos = transform.position + offset;
-        
-    }
-
-    ///private void OnDrawGizmos()
-    ///{
-    ///    Gizmos.color = Color.cyan;
-    ///    Gizmos.DrawSphere(cyanBallPos,0.3f);
-    ///    Gizmos.DrawLine(transform.position,cyanBallPos);
-    ///}
     
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent(out IInteractive interactive))
+        {
+            if (!interactivesNearbyeList.Contains(interactive))
+            {
+                interactivesNearbyeList.Add(interactive);
+            }
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.TryGetComponent(out IInteractive interactive))
+        {
+            if (interactivesNearbyeList.Contains(interactive))
+            {
+                interactivesNearbyeList.Remove(interactive);
+            }
+        }
+    }
+
     public void OnMove(InputAction.CallbackContext context)
     {
         Vector2 direction = context.ReadValue<Vector2>();
@@ -91,5 +105,10 @@ public class PlayerController : MonoBehaviour, GnomeGameActions.IPlayerActions
     {
         if (activeWeapon)
             activeWeapon.Attack(this.transform);
+    }
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+        if(context.started)
+            GetClosestInteractive()?.Interact();
     }
 }

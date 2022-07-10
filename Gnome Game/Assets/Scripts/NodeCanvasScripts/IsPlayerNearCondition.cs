@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class IsPlayerNearCondition : ConditionTask
 {
-    private PlayerController PlayerController;
+    private PlayerController playerController;
     public BBParameter<float> interactDistance;
     protected override bool OnCheck()
     {
