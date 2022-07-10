@@ -76,7 +76,7 @@ MonoBehaviour:
   offsetSpeed: 3
   cameraSpeed: 0.01
   playerSpeed: 5
-  rotationSpeed: 1000
+  rotationSpeed: 500
   CameraController: {fileID: 0}
   activeWeapon: {fileID: 0}
 --- !u!95 &6582986668405540974

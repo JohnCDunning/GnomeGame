@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour, GnomeGameActions.IPlayerActions
     [SerializeField] private float offsetSpeed;
     [SerializeField] private float cameraSpeed = 0.001f;
     [SerializeField] private float playerSpeed = 3f;
-    [SerializeField] private float rotationSpeed = 1000;
+    [SerializeField] private float rotationSpeed = 5;
     public CameraController CameraController;
     public WeaponBase activeWeapon;
 
@@ -37,40 +37,45 @@ public class PlayerController : MonoBehaviour, GnomeGameActions.IPlayerActions
 
     private void Update()
     {
-        if(lastMovement != Vector3.zero)
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(lastMovement, Vector3.up), rotationSpeed * Time.deltaTime);
-    }
-
-    private void LateUpdate()
-    {
-        Vector3 vel = new Vector3();
-        CameraController.transform.position = Vector3.SmoothDamp(CameraController.transform.position, cyanBallPos, ref vel, cameraSpeed);
-    }
-
-    private void FixedUpdate()
-    {
+        if (lastMovement != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(lastMovement, Vector3.up), rotationSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        }
+        
         Vector3 movementLastFrame = movement;
         controller.Move(movement * (Time.deltaTime * playerSpeed));
 
         if (movement != Vector3.zero)
         {
-           lastMovement = movement.normalized;
+            lastMovement = movement.normalized;
         }
-
-        
-        //Camera controller for smooth offset
-        offset += movement * (offsetSpeed * Time.deltaTime);
-        offset = Vector3.ClampMagnitude(offset, maxOffset);
-        cyanBallPos = transform.position + offset;
-        
     }
 
-    private void OnDrawGizmos()
+    private void LateUpdate()
     {
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawSphere(cyanBallPos,0.3f);
-        Gizmos.DrawLine(transform.position,cyanBallPos);
+        ///Vector3 vel = new Vector3();
+        ///CameraController.transform.position = Vector3.SmoothDamp(CameraController.transform.position, cyanBallPos, ref vel, cameraSpeed);
     }
+
+    private void FixedUpdate()
+    {
+
+
+        
+       // //Camera controller for smooth offset
+       // offset += movement * (offsetSpeed * Time.deltaTime);
+       // offset = Vector3.ClampMagnitude(offset, maxOffset);
+       // cyanBallPos = transform.position + offset;
+        
+    }
+
+    ///private void OnDrawGizmos()
+    ///{
+    ///    Gizmos.color = Color.cyan;
+    ///    Gizmos.DrawSphere(cyanBallPos,0.3f);
+    ///    Gizmos.DrawLine(transform.position,cyanBallPos);
+    ///}
     
     public void OnMove(InputAction.CallbackContext context)
     {

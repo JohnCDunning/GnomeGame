@@ -8,11 +8,10 @@ public class CameraController : MonoBehaviour
 
     public float offset;
     public float speed; 
+   
+    private Vector3 velocity;
     void Update()
     {
-       // transform.position = Vector3.MoveTowards(transform.position,
-           // playerController.transform.position + (playerController.lastMovement * offset), Time.deltaTime * speed);
-
-
+        transform.position = Vector3.SmoothDamp(transform.position, playerController.transform.position, ref velocity, speed);
     }
 }
