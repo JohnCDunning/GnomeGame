@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour, GnomeGameActions.IPlayerActions
                 closestInteractive = interactivesNearbyeList[i];
             }
         }
-        CameraController.interactCamera.m_LookAt = closestInteractive.GetTransform();
+        CameraController.interactCamera.m_LookAt = closestInteractive?.GetTransform();
         return closestInteractive;
     }
     
