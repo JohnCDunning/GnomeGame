@@ -6,7 +6,9 @@ using UnityEngine;
 public class AppManager : MonoBehaviour
 {
     public static AppManager Instance { get; private set; }
+    public ItemFactory ItemFactory { get; private set; }
 
+    [SerializeField] private ItemFactory itemFactory;
     [field: SerializeField] public InputController InputController { get; private set; } 
     
     private void Awake()
@@ -24,6 +26,7 @@ public class AppManager : MonoBehaviour
 
     private void Initialize()
     {
-        InputController.Initialize();   
+        InputController.Initialize();
+        ItemFactory.Initialize();
     }
 }
